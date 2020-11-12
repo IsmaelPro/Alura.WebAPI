@@ -31,7 +31,7 @@ namespace Alura.WebAPI.WebApp.Api
         }
 
         [HttpPost]
-        public IActionResult Incluir(LivroUpload model)
+        public IActionResult Incluir([FromBody]LivroUpload model)
         {
             if (ModelState.IsValid)
             {
@@ -46,8 +46,7 @@ namespace Alura.WebAPI.WebApp.Api
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Alterar(LivroUpload model)
+        public IActionResult Alterar([FromBody]LivroUpload model) //foi necessário usar o [frombody] pois estava passando um json e o mesmo não era recuperado
         {
             if (ModelState.IsValid)
             {
