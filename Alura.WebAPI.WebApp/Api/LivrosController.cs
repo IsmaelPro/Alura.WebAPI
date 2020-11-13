@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alura.WebAPI.WebApp.Api
 {
-    public class LivrosController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class LivrosController : ControllerBase // devemos herdar de controller base na criaçao de uma API
     {
         private readonly IRepository<Livro> _repo;
 
@@ -19,6 +21,13 @@ namespace Alura.WebAPI.WebApp.Api
         }
 
         [HttpGet]
+        public IActionResult ListaDeLivros()
+        {
+            var lista = _repo.All.Select(l => l.ToModel()).ToList();
+            return Ok(lista);
+        }
+
+        [HttpGet("{id}")]
         public IActionResult Recuperar(int id)
         {
             var model = _repo.Find(id);
@@ -27,11 +36,11 @@ namespace Alura.WebAPI.WebApp.Api
                 return NotFound();
             }
 
-            return Json(model.ToModel());
+            return Ok(model.ToModel());
         }
 
         [HttpPost]
-        public IActionResult Incluir([FromBody]LivroUpload model)
+        public IActionResult Incluir(LivroUpload model)
         {
             if (ModelState.IsValid)
             {
@@ -45,8 +54,8 @@ namespace Alura.WebAPI.WebApp.Api
         }
 
 
-        [HttpPost]
-        public IActionResult Alterar([FromBody]LivroUpload model) //foi necessário usar o [frombody] pois estava passando um json e o mesmo não era recuperado
+        [HttpPut]
+        public IActionResult Alterar(LivroUpload model) //foi necessário usar o [frombody] pois estava passando um json e o mesmo não era recuperado
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +73,7 @@ namespace Alura.WebAPI.WebApp.Api
             return BadRequest();//400
         }
 
-        [HttpPost]
+        [HttpDelete("{id}")]
         public IActionResult Remover(int id)
         {
             var model = _repo.Find(id);
