@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Alura.ListaLeitura.Modelos;
 using Alura.ListaLeitura.Persistencia;
@@ -11,7 +10,7 @@ namespace Alura.WebAPI.WebApp.Api
 {
     [ApiController]
     [Route("[controller]")]
-    public class LivrosController : ControllerBase // devemos herdar de controller base na criaçao de uma API
+    public class LivrosController : ControllerBase
     {
         private readonly IRepository<Livro> _repo;
 
@@ -23,7 +22,7 @@ namespace Alura.WebAPI.WebApp.Api
         [HttpGet]
         public IActionResult ListaDeLivros()
         {
-            var lista = _repo.All.Select(l => l.ToModel()).ToList();
+            var lista = _repo.All.Select(l => l.ToApi()).ToList();
             return Ok(lista);
         }
 
@@ -35,12 +34,25 @@ namespace Alura.WebAPI.WebApp.Api
             {
                 return NotFound();
             }
+            return Ok(model.ToApi());
+        }
 
-            return Ok(model.ToModel());
+        [HttpGet("{id}/capa")]
+        public IActionResult ImagemCapa(int id)
+        {
+            byte[] img = _repo.All
+               .Where(l => l.Id == id)
+               .Select(l => l.ImagemCapa)
+               .FirstOrDefault();
+            if (img != null)
+            {
+                return File(img, "image/png");
+            }
+            return File("~/images/capas/capa-vazia.png", "image/png");
         }
 
         [HttpPost]
-        public IActionResult Incluir(LivroUpload model)
+        public IActionResult Incluir([FromBody] LivroUpload model)
         {
             if (ModelState.IsValid)
             {
@@ -49,13 +61,11 @@ namespace Alura.WebAPI.WebApp.Api
                 var uri = Url.Action("Recuperar", new { id = livro.Id });
                 return Created(uri, livro); //201
             }
-
             return BadRequest();
         }
 
-
         [HttpPut]
-        public IActionResult Alterar(LivroUpload model) //foi necessário usar o [frombody] pois estava passando um json e o mesmo não era recuperado
+        public IActionResult Alterar([FromBody] LivroUpload model)
         {
             if (ModelState.IsValid)
             {
@@ -68,9 +78,9 @@ namespace Alura.WebAPI.WebApp.Api
                         .FirstOrDefault();
                 }
                 _repo.Alterar(livro);
-                return Ok();//200
+                return Ok(); //200
             }
-            return BadRequest();//400
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]
@@ -79,10 +89,10 @@ namespace Alura.WebAPI.WebApp.Api
             var model = _repo.Find(id);
             if (model == null)
             {
-                return NotFound();//404
+                return NotFound();
             }
             _repo.Excluir(model);
-            return NoContent();// 204
+            return NoContent(); //203
         }
     }
 }
