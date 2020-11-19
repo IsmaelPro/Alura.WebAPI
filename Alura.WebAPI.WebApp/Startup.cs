@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Alura.WebAPI.WebApp.Formatters;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using Alura.ListaLeitura.HttpClients;
 
 namespace Alura.ListaLeitura.WebApp
 {
@@ -50,24 +51,11 @@ namespace Alura.ListaLeitura.WebApp
                 options.OutputFormatters.Add(new LivroCSVFormatter()); 
             }).AddXmlSerializerFormatters();
 
-            //autenticação por token
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = "JwtBearer";
-            //    options.DefaultChallengeScheme = "JwtBearer";
-            //}).AddJwtBearer("JwtBearer", options => {
-            //    options.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidateLifetime = true,
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("alura-webapi-authenticaton-valid")),
-            //        ClockSkew = TimeSpan.FromMinutes(5),
-            //        ValidIssuer = "Alura.WebApp",
-            //        ValidAudience = "Postman",
-            //    };
-            //});
+            services.AddHttpClient<LivroApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:6000/api/");
+            });
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
