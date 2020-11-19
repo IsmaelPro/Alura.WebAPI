@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alura.WebAPI.DAL.Livros", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alura.WebAPI.DAL.Usuarios", "Alura.WebAPI.DAL.Usuarios\Alura.WebAPI.DAL.Usuarios.csproj", "{ED01027C-93E5-495F-8C24-0289E72DC8F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alura.WebAPI.AuthProvider", "Alura.WebAPI.AuthProvider\Alura.WebAPI.AuthProvider.csproj", "{E7137E7C-19F8-457E-B18B-AF273A8C556F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alura.WebAPI.AuthProvider", "Alura.WebAPI.AuthProvider\Alura.WebAPI.AuthProvider.csproj", "{E7137E7C-19F8-457E-B18B-AF273A8C556F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alura.WebAPI.Api", "Alura.WebAPI.Api\Alura.WebAPI.Api.csproj", "{B6AA1E38-2889-49BA-B87A-47E05A7DE82B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{E7137E7C-19F8-457E-B18B-AF273A8C556F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7137E7C-19F8-457E-B18B-AF273A8C556F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7137E7C-19F8-457E-B18B-AF273A8C556F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6AA1E38-2889-49BA-B87A-47E05A7DE82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6AA1E38-2889-49BA-B87A-47E05A7DE82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6AA1E38-2889-49BA-B87A-47E05A7DE82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6AA1E38-2889-49BA-B87A-47E05A7DE82B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{8980974A-1B85-4BDB-A1D0-0CCB5F709037} = {58B6C847-CC64-4D78-B854-57E826A5BE62}
 		{ED01027C-93E5-495F-8C24-0289E72DC8F2} = {58B6C847-CC64-4D78-B854-57E826A5BE62}
 		{E7137E7C-19F8-457E-B18B-AF273A8C556F} = {AD64A2D5-F033-40E0-9C69-E38B3F195791}
+		{B6AA1E38-2889-49BA-B87A-47E05A7DE82B} = {AD64A2D5-F033-40E0-9C69-E38B3F195791}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27AF3585-B804-4D4A-9C5B-5667BF413334}
