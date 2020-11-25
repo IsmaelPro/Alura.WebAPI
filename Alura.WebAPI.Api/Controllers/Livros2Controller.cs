@@ -63,6 +63,7 @@ namespace Alura.ListaLeitura.Api.Controllers
         [HttpPost]
         public IActionResult Incluir([FromForm] LivroUpload model)
         {
+
             if (ModelState.IsValid)
             {
                 var livro = model.ToLivro();
@@ -70,7 +71,7 @@ namespace Alura.ListaLeitura.Api.Controllers
                 var uri = Url.Action("Recuperar", new { id = livro.Id });
                 return Created(uri, livro); //201
             }
-            return BadRequest();
+            return BadRequest(ErrorResponse.FromModelState(ModelState));
         }
 
         [HttpPut]
